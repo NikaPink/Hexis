@@ -6,7 +6,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface DaoSerie {
+interface SerieDao {
     @Insert
     suspend fun insertNewSerie(serie: Serie)
 

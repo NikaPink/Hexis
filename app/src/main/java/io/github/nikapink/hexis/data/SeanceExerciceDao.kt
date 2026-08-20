@@ -6,7 +6,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface DaoSeanceExercice {
+interface SeanceExerciceDao {
     @Insert
     suspend fun insertNewExercice(seanceExercice: SeanceExercice)
 

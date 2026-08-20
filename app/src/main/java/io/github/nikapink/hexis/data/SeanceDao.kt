@@ -6,7 +6,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface DaoSeance {
+interface SeanceDao {
     @Insert
     suspend fun insertNewSeance(seance: Seance)
 
