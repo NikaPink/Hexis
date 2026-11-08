@@ -7,8 +7,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import io.github.nikapink.hexis.data.Seance
 
@@ -19,12 +21,16 @@ fun SeanceScreen(
     onAddSeance: (String, Long) -> Unit,
     seances: List<Seance>
 ) {
-    val name = remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
 
     Column(modifier = modifier) {
-        TextField(value = name.value, onValueChange = { name.value = it })
+        TextField(value = name, onValueChange = { name = it })
 
-        Button(onClick = { onAddSeance(name.value, System.currentTimeMillis()) }) {
+        Button(onClick = {
+            onAddSeance(name, System.currentTimeMillis())
+            name = ""
+
+        }) {
             Text("Insert seance")
         }
 
