@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.nikapink.hexis.ui.screens.SeanceScreen
 import io.github.nikapink.hexis.ui.theme.HexisTheme
 import io.github.nikapink.hexis.view.SeanceViewModel
 
@@ -23,9 +24,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             HexisTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(24.dp)
+                    SeanceScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        onAddSeance = { nom, dateMillisecondes ->
+                            println("Nouvelle séance : $nom à $dateMillisecondes")
+
+                        }
                     )
                 }
             }
@@ -51,8 +55,4 @@ fun GreetingPreview() {
     }
 }
 
-@Composable
-fun OnAddSeance() {
-    SeanceViewModel vm = New SeanceViewModel;
-    vm.insert()
-}
+
