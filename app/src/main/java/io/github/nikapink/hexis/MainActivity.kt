@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,18 +26,25 @@ class MainActivity : ComponentActivity() {
     private val seanceViewModel: SeanceViewModel by viewModels {
         SeanceViewModelFactory((application as HexisApplication).repository)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             HexisTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val seances by seanceViewModel.allSeance.collectAsState(initial = emptyList())
                     SeanceScreen(
                         modifier = Modifier.padding(innerPadding),
                         onAddSeance = { nom, dateMillisecondes ->
-                            seanceViewModel.insert(seance = Seance(name = nom, date = dateMillisecondes))
-
-                        }
+                            seanceViewModel.insert(
+                                seance = Seance(
+                                    name = nom,
+                                    date = dateMillisecondes
+                                )
+                            )
+                        },
+                        seances = seances,
                     )
                 }
             }
@@ -43,22 +52,5 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Surface(color = MaterialTheme.colorScheme.primary) {
-
-
-
-    }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HexisTheme {
-        Greeting("Android")
-    }
-}
 
 
